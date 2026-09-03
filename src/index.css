@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #e6ebf4;
+    color: #1e293b;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Custom Neumorphism Classes */
+.neu-flat {
+  background: #e6ebf4;
+  box-shadow: 8px 8px 16px #cad2df, -8px -8px 16px #ffffff;
+}
+
+.neu-flat-sm {
+  background: #e6ebf4;
+  box-shadow: 4px 4px 8px #cbd3e0, -4px -4px 8px #ffffff;
+}
+
+.neu-flat-lg {
+  background: #e6ebf4;
+  box-shadow: 12px 12px 24px #c2c9d6, -12px -12px 24px #ffffff;
+}
+
+.neu-pressed {
+  background: #e6ebf4;
+  box-shadow: inset 4px 4px 8px #c8d0dc, inset -4px -4px 8px #ffffff;
+}
+
+.neu-pressed-sm {
+  background: #e6ebf4;
+  box-shadow: inset 2px 2px 4px #c8d0dc, inset -2px -2px 4px #ffffff;
+}
+
+.neu-convex {
+  background: linear-gradient(145deg, #f6fbff, #cfd4dc);
+  box-shadow: 6px 6px 12px #c8d0dc, -6px -6px 12px #ffffff;
+}
+
+.neu-concave {
+  background: linear-gradient(145deg, #cfd4dc, #f6fbff);
+  box-shadow: 6px 6px 12px #c8d0dc, -6px -6px 12px #ffffff;
+}
+
+.neu-btn {
+  background: #e6ebf4;
+  box-shadow: 5px 5px 10px #c5cbd7, -5px -5px 10px #ffffff;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-btn:hover {
+  box-shadow: 3px 3px 6px #c5cbd7, -3px -3px 6px #ffffff;
+  transform: translateY(1px);
+}
+
+.neu-btn:active, .neu-btn-active {
+  box-shadow: inset 3px 3px 6px #c5cbd7, inset -3px -3px 6px #ffffff !important;
+  transform: translateY(2px);
+}
+
+.neu-btn-primary {
+  background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+  color: white;
+  box-shadow: 5px 5px 12px #c5cbd7, -5px -5px 12px #ffffff, 0 0 15px rgba(29, 78, 216, 0.3);
+  transition: all 0.2s ease;
+}
+
+.neu-btn-primary:hover {
+  box-shadow: 3px 3px 8px #c5cbd7, -3px -3px 8px #ffffff, 0 0 20px rgba(29, 78, 216, 0.5);
+}
+
+.neu-btn-primary:active {
+  box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2.5s infinite ease-in-out;
+}
+
+@keyframes highlight-change {
+  0% { transform: scale(1.15); filter: brightness(1.2); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
+.animate-eta-update {
+  animation: highlight-change 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e6ebf4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
