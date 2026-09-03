@@ -143,7 +143,7 @@ export const App: React.FC = () => {
   const avgConfidence = Math.round(trains.reduce((acc, t) => acc + t.confidenceScore, 0) / trains.length);
 
   return (
-    <div className="min-h-screen bg-[#e6ebf4] text-slate-800 p-3 sm:p-6 transition-colors font-sans">
+    <div className="min-h-screen bg-[#07111F] text-[#F4F7FB] p-3 sm:p-6 transition-colors font-sans">
       <div className="max-w-7xl mx-auto space-y-6">
         <Header currentView={currentView} onViewChange={setCurrentView} onStartDemo={handleStartDemo} isDemoActive={isDemoActive} />
         <div className="flex flex-col lg:flex-row gap-6 items-start">
@@ -152,66 +152,66 @@ export const App: React.FC = () => {
             {currentView === 'overview' && (
               <div className="space-y-6">
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
-                  <div className="p-4 rounded-2xl neu-flat border border-white/80">
-                    <div className="flex items-center justify-between text-slate-500 mb-1">
+                  <div className="p-4 rounded-xl rail-surface">
+                    <div className="flex items-center justify-between text-[#9BAFC3] mb-1">
                       <span className="text-[10px] font-extrabold uppercase tracking-wider">Active Trains</span>
-                      <Train className="w-4 h-4 text-blue-600" />
+                      <Train className="w-4 h-4 text-[#3BA7FF]" />
                     </div>
-                    <div className="text-3xl font-black text-slate-800 font-mono">{activeTrainsCount}</div>
-                    <div className="text-[10px] text-emerald-600 font-bold mt-1 flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> 100% Tracking Live
+                    <div className="text-3xl font-black text-[#F4F7FB] font-mono">{activeTrainsCount}</div>
+                    <div className="text-[10px] text-[#20C997] font-bold mt-1 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#20C997] animate-pulse"></span> 100% Tracking Live
                     </div>
                   </div>
-                  <div className="p-4 rounded-2xl neu-flat border border-white/80">
-                    <div className="flex items-center justify-between text-slate-500 mb-1">
+                  <div className="p-4 rounded-xl rail-surface">
+                    <div className="flex items-center justify-between text-[#9BAFC3] mb-1">
                       <span className="text-[10px] font-extrabold uppercase tracking-wider">Avg Delay</span>
-                      <Clock className="w-4 h-4 text-amber-600" />
+                      <Clock className="w-4 h-4 text-[#F5B942]" />
                     </div>
-                    <div className="text-3xl font-black text-amber-700 font-mono">{avgDelay} <span className="text-sm font-bold">min</span></div>
-                    <div className="text-[10px] text-slate-500 font-medium mt-1">Across 702 km corridor</div>
+                    <div className="text-3xl font-black text-[#F5B942] font-mono">{avgDelay} <span className="text-sm font-bold">min</span></div>
+                    <div className="text-[10px] text-[#9BAFC3] font-medium mt-1">Across 702 km corridor</div>
                   </div>
-                  <div className="p-4 rounded-2xl neu-flat border border-white/80">
-                    <div className="flex items-center justify-between text-slate-500 mb-1">
+                  <div className="p-4 rounded-xl rail-surface">
+                    <div className="flex items-center justify-between text-[#9BAFC3] mb-1">
                       <span className="text-[10px] font-extrabold uppercase tracking-wider">High Risk</span>
-                      <AlertTriangle className="w-4 h-4 text-rose-600" />
+                      <AlertTriangle className="w-4 h-4 text-[#EF5350]" />
                     </div>
-                    <div className="text-3xl font-black text-rose-700 font-mono">{highRiskCount}</div>
-                    <div className="text-[10px] text-rose-600 font-bold mt-1">Needs Dispatch Attention</div>
+                    <div className="text-3xl font-black text-[#EF5350] font-mono">{highRiskCount}</div>
+                    <div className="text-[10px] text-[#EF5350] font-bold mt-1">Needs Dispatch Attention</div>
                   </div>
-                  <div className="p-4 rounded-2xl neu-flat border border-white/80">
-                    <div className="flex items-center justify-between text-slate-500 mb-1">
+                  <div className="p-4 rounded-xl rail-surface">
+                    <div className="flex items-center justify-between text-[#9BAFC3] mb-1">
                       <span className="text-[10px] font-extrabold uppercase tracking-wider">Predictions Updated</span>
-                      <Activity className="w-4 h-4 text-blue-600" />
+                      <Activity className="w-4 h-4 text-[#3BA7FF]" />
                     </div>
-                    <div className="text-3xl font-black text-blue-700 font-mono">{eventLogs.length + 19}</div>
-                    <div className="text-[10px] text-slate-500 font-medium mt-1">Simulated ML passes</div>
+                    <div className="text-3xl font-black text-[#3BA7FF] font-mono">{eventLogs.length + 19}</div>
+                    <div className="text-[10px] text-[#9BAFC3] font-medium mt-1">Simulated ML passes</div>
                   </div>
-                  <div className="p-4 rounded-2xl neu-flat border border-white/80 col-span-2 sm:col-span-1">
-                    <div className="flex items-center justify-between text-slate-500 mb-1">
+                  <div className="p-4 rounded-xl rail-surface col-span-2 sm:col-span-1">
+                    <div className="flex items-center justify-between text-[#9BAFC3] mb-1">
                       <span className="text-[10px] font-extrabold uppercase tracking-wider">Avg Confidence</span>
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                      <CheckCircle2 className="w-4 h-4 text-[#20C997]" />
                     </div>
-                    <div className="text-3xl font-black text-emerald-700 font-mono">{avgConfidence}%</div>
-                    <div className="text-[10px] text-emerald-700 font-bold mt-1">High Statistical Fit</div>
+                    <div className="text-3xl font-black text-[#20C997] font-mono">{avgConfidence}%</div>
+                    <div className="text-[10px] text-[#20C997] font-bold mt-1">High Statistical Fit</div>
                   </div>
                 </div>
 
-                <div className="rounded-2xl neu-flat p-5 border border-white/80">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-300/40">
+                <div className="rounded-xl rail-surface p-5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-[#233B52]">
                     <div>
-                      <h3 className="text-base font-extrabold text-slate-800 flex items-center gap-2">
+                      <h3 className="text-base font-extrabold text-[#F4F7FB] flex items-center gap-2">
                         Active Monitored Express Trains
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 font-bold neu-pressed-sm">4 Flagship Corridors</span>
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#112438] text-[#3BA7FF] font-bold border border-[#233B52]">4 Flagship Corridors</span>
                       </h3>
-                      <p className="text-xs text-slate-500 font-medium">Compare linear Static ETA vs RailETA Dynamic Forecasts in real time</p>
+                      <p className="text-xs text-[#9BAFC3] font-medium">Compare linear Static ETA vs RailETA Dynamic Forecasts in real time</p>
                     </div>
-                    <span className="text-xs font-bold text-slate-600">Selected: <span className="text-blue-700 font-black">{selectedTrain.name}</span></span>
+                    <span className="text-xs font-bold text-[#9BAFC3]">Selected: <span className="text-[#3BA7FF] font-black">{selectedTrain.name}</span></span>
                   </div>
 
                   <div className="overflow-x-auto">
                     <table className="w-full text-xs text-left">
                       <thead>
-                        <tr className="border-b border-slate-300/70 text-slate-500 text-[10px] uppercase font-black tracking-wider">
+                        <tr className="border-b border-[#233B52] text-[#9BAFC3] text-[10px] uppercase font-black tracking-wider">
                           <th className="py-3 px-3">Train Details</th>
                           <th className="py-3 px-3">Current Section</th>
                           <th className="py-3 px-3">Delay</th>
@@ -224,34 +224,34 @@ export const App: React.FC = () => {
                           <th className="py-3 px-3 text-right">Action</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-200/70 font-medium">
+                      <tbody className="divide-y divide-[#233B52] font-medium">
                         {trains.map((t) => {
                           const isSelected = t.id === selectedTrainId;
                           return (
-                            <tr key={t.id} className={'transition-colors cursor-pointer ' + (isSelected ? 'bg-blue-100/40 font-semibold' : 'hover:bg-slate-100/60')} onClick={() => setSelectedTrainId(t.id)}>
+                            <tr key={t.id} className={'transition-colors cursor-pointer ' + (isSelected ? 'bg-[#112438] font-semibold' : 'hover:bg-[#112438]')} onClick={() => setSelectedTrainId(t.id)}>
                               <td className="py-3.5 px-3">
                                 <div className="flex items-center space-x-2">
-                                  <span className="font-mono font-black text-slate-900 bg-white px-2 py-0.5 rounded neu-flat-sm text-[11px]">{t.number}</span>
+                                  <span className="font-mono font-black text-[#F4F7FB] bg-[#0B1725] border border-[#233B52] px-2 py-0.5 rounded text-[11px]">{t.number}</span>
                                   <div>
-                                    <div className="font-black text-slate-800 text-xs">{t.name}</div>
-                                    <div className="text-[10px] text-slate-500">{t.type}</div>
+                                    <div className="font-black text-[#F4F7FB] text-xs">{t.name}</div>
+                                    <div className="text-[10px] text-[#9BAFC3]">{t.type}</div>
                                   </div>
                                 </div>
                               </td>
-                              <td className="py-3.5 px-3 font-mono font-bold text-slate-700">{t.currentSection}</td>
-                              <td className="py-3.5 px-3 font-mono font-extrabold text-amber-700">+{t.currentDelayMin} min</td>
-                              <td className="py-3.5 px-3 font-mono font-bold text-slate-800">{t.speedKmh} km/h</td>
-                              <td className="py-3.5 px-3 font-mono text-slate-600">{t.scheduledEta}</td>
-                              <td className="py-3.5 px-3 font-mono text-amber-800 font-bold">{t.staticEta}</td>
-                              <td className="py-3.5 px-3 font-mono font-black text-blue-700 text-sm">
-                                <span className="flex items-center gap-1"><Sparkles className="w-3 h-3 text-blue-500" />{t.dynamicEta}</span>
+                              <td className="py-3.5 px-3 font-mono font-bold text-[#DCEAFB]">{t.currentSection}</td>
+                              <td className="py-3.5 px-3 font-mono font-extrabold text-[#F5B942]">+{t.currentDelayMin} min</td>
+                              <td className="py-3.5 px-3 font-mono font-bold text-[#F4F7FB]">{t.speedKmh} km/h</td>
+                              <td className="py-3.5 px-3 font-mono text-[#9BAFC3]">{t.scheduledEta}</td>
+                              <td className="py-3.5 px-3 font-mono text-[#F5B942] font-bold">{t.staticEta}</td>
+                              <td className="py-3.5 px-3 font-mono font-black text-[#3BA7FF] text-sm">
+                                <span className="flex items-center gap-1"><Sparkles className="w-3 h-3 text-[#3BA7FF]" />{t.dynamicEta}</span>
                               </td>
-                              <td className="py-3.5 px-3 font-bold text-slate-700">{t.confidenceScore}%</td>
+                              <td className="py-3.5 px-3 font-bold text-[#DCEAFB]">{t.confidenceScore}%</td>
                               <td className="py-3.5 px-3">
-                                <span className={'px-2 py-0.5 rounded-full text-[10px] font-black neu-sm ' + (t.risk === 'High' ? 'bg-rose-100 text-rose-800' : t.risk === 'Medium' ? 'bg-amber-100 text-amber-800' : t.risk === 'Recovering' ? 'bg-blue-100 text-blue-800' : 'bg-emerald-100 text-emerald-800')}>{t.status}</span>
+                                <span className={'px-2 py-0.5 rounded-full text-[10px] font-black ' + (t.risk === 'High' ? 'bg-[#2A1820] text-[#EF5350] border border-[#EF5350]/30' : t.risk === 'Medium' ? 'bg-[#2F2415] text-[#F5B942] border border-[#F5B942]/30' : t.risk === 'Recovering' ? 'bg-[#112438] text-[#3BA7FF] border border-[#3BA7FF]/30' : 'bg-[#112B25] text-[#20C997] border border-[#20C997]/30')}>{t.status}</span>
                               </td>
                               <td className="py-3.5 px-3 text-right">
-                                <button onClick={(e) => { e.stopPropagation(); setSelectedTrainId(t.id); setCurrentView('live-train'); }} className="neu-btn-primary px-3 py-1 rounded-xl text-[11px] font-extrabold inline-flex items-center gap-1 shadow-sm">
+                                <button onClick={(e) => { e.stopPropagation(); setSelectedTrainId(t.id); setCurrentView('live-train'); }} className="rail-btn-primary px-3 py-1 rounded-lg text-[11px] font-extrabold inline-flex items-center gap-1">
                                   Open Live Prediction <ArrowUpRight className="w-3 h-3" />
                                 </button>
                               </td>

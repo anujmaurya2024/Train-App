@@ -29,119 +29,113 @@ export const EtaComparisonCard: React.FC<EtaComparisonCardProps> = ({
   const isDelayExpanded = predictedFinalDelayMin > currentDelayMin;
 
   return (
-    <div className="w-full rounded-2xl neu-flat p-5 border border-white/70 relative overflow-hidden">
-      {/* Top Banner Tag */}
-      <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-300/40">
+    <div className="w-full rounded-xl border border-[#233B52] bg-[#0D1B2A] p-5 relative overflow-hidden">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-[#233B52]">
         <div className="flex items-center space-x-2">
-          <div className="p-1.5 rounded-lg bg-blue-100 text-blue-700 neu-pressed-sm">
+          <div className="p-1.5 rounded-lg bg-[#112438] text-[#3BA7FF] border border-[#233B52]">
             <Sparkles className="w-4 h-4" />
           </div>
           <div>
-            <h2 className="text-sm font-extrabold uppercase tracking-wider text-slate-800">
+            <h2 className="text-sm font-extrabold uppercase tracking-wider text-[#F4F7FB]">
               Core ETA Intelligence Comparison
             </h2>
-            <p className="text-[11px] text-slate-500 font-medium">
+            <p className="text-[11px] text-[#9BAFC3] font-medium">
               Scheduled vs Linear Static vs RailETA Dynamic ML Forecast
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-slate-600">Model Confidence:</span>
-          <div className="px-3 py-1 rounded-xl neu-pressed bg-emerald-50 text-emerald-700 font-extrabold text-xs flex items-center gap-1.5 border border-emerald-300/40">
-            <CheckCircle className="w-3.5 h-3.5 text-emerald-600" />
+          <span className="text-xs font-bold text-[#9BAFC3]">Model Confidence:</span>
+          <div className="px-3 py-1 rounded-lg bg-[#112B25] text-[#20C997] font-extrabold text-xs flex items-center gap-1.5 border border-[#20C997]/20">
+            <CheckCircle className="w-3.5 h-3.5 text-[#20C997]" />
             <span>{confidenceScore}% Highly Confident</span>
           </div>
         </div>
       </div>
 
-      {/* Main 3 ETA Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-        {/* 1. Scheduled ETA */}
-        <div className="rounded-2xl neu-pressed p-4 bg-slate-100/50 border border-white/80">
-          <div className="flex items-center justify-between text-slate-500 mb-1">
+        <div className="rounded-xl p-4 bg-[#112438] border border-[#233B52]">
+          <div className="flex items-center justify-between text-[#9BAFC3] mb-1">
             <span className="text-[11px] font-bold uppercase tracking-wider">Official Timetable</span>
             <Clock className="w-3.5 h-3.5" />
           </div>
-          <div className="text-xs font-medium text-slate-600">Scheduled ETA</div>
-          <div className="text-3xl font-black text-slate-700 my-1 font-mono tracking-tight">
+          <div className="text-xs font-medium text-[#9BAFC3]">Scheduled ETA</div>
+          <div className="text-3xl font-black text-[#F4F7FB] my-1 font-mono tracking-tight">
             {scheduledEta}
           </div>
-          <div className="text-[11px] text-slate-500 font-medium">
+          <div className="text-[11px] text-[#9BAFC3] font-medium">
             Published working timetable (WTT)
           </div>
         </div>
 
-        {/* 2. Static ETA (Current Railway Standard) */}
-        <div className="rounded-2xl neu-flat-sm p-4 bg-amber-50/30 border border-amber-200/50">
-          <div className="flex items-center justify-between text-amber-700 mb-1">
+        <div className="rounded-xl p-4 bg-[#1C2E41] border border-[#F5B942]/30">
+          <div className="flex items-center justify-between text-[#F5B942] mb-1">
             <span className="text-[11px] font-extrabold uppercase tracking-wider">Conventional Logic</span>
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-200/70 font-bold">Static</span>
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#2F2415] font-bold">Static</span>
           </div>
-          <div className="text-xs font-medium text-slate-700">Static ETA</div>
-          <div className="text-3xl font-black text-amber-700 my-1 font-mono tracking-tight">
+          <div className="text-xs font-medium text-[#DCEAFB]">Static ETA</div>
+          <div className="text-3xl font-black text-[#F5B942] my-1 font-mono tracking-tight">
             {staticEta}
           </div>
-          <div className="text-[11px] text-amber-800/80 font-medium">
+          <div className="text-[11px] text-[#F5B942] font-medium">
             Scheduled + Current Delay (+{currentDelayMin}m)
           </div>
-          <div className="text-[10px] text-slate-500 mt-1 italic">
+          <div className="text-[10px] text-[#9BAFC3] mt-1 italic">
             Assumes static delay with zero future variability
           </div>
         </div>
 
-        {/* 3. Dynamic ETA (RailETA Engine) */}
-        <div className="rounded-2xl neu-flat p-4 bg-gradient-to-br from-blue-50/80 to-indigo-50/60 border-2 border-blue-500/40 relative group">
+        <div className="rounded-xl p-4 bg-[#0F2036] border-2 border-[#3BA7FF]/40 relative group">
           <div className="absolute top-2 right-2">
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-600 text-white shadow-sm flex items-center gap-1">
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#3BA7FF] text-[#07111F] flex items-center gap-1">
               <Sparkles className="w-2.5 h-2.5" /> RailETA
             </span>
           </div>
-          <div className="text-xs font-bold text-blue-700">Dynamic ETA (ML Forecast)</div>
-          
+          <div className="text-xs font-bold text-[#3BA7FF]">Dynamic ETA (ML Forecast)</div>
+
           <div className="flex items-baseline gap-2 my-1">
-            <span className="text-3xl sm:text-4xl font-black text-blue-800 font-mono tracking-tight animate-eta-update">
+            <span className="text-3xl sm:text-4xl font-black text-[#3BA7FF] font-mono tracking-tight animate-eta-update">
               {dynamicEta}
             </span>
             {previousDynamicEta && previousDynamicEta !== dynamicEta && (
-              <span className="text-xs font-bold text-slate-400 line-through font-mono">
+              <span className="text-xs font-bold text-[#64798E] line-through font-mono">
                 {previousDynamicEta}
               </span>
             )}
           </div>
 
-          <div className="text-[11px] font-bold text-blue-900 flex items-center gap-1">
-            <TrendingUp className="w-3.5 h-3.5 text-blue-600" />
+          <div className="text-[11px] font-bold text-[#DCEAFB] flex items-center gap-1">
+            <TrendingUp className="w-3.5 h-3.5 text-[#3BA7FF]" />
             <span>
               Expected Window: {arrivalWindow.from} – {arrivalWindow.to}
             </span>
           </div>
-          <div className="text-[10px] text-slate-600 mt-1 font-medium">
-            Predicted final delay: <span className="font-extrabold text-blue-700">+{predictedFinalDelayMin} min</span>
-            {isDelayRecovered && <span className="text-emerald-700 font-bold ml-1">(Reclaiming {currentDelayMin - predictedFinalDelayMin}m)</span>}
-            {isDelayExpanded && <span className="text-rose-700 font-bold ml-1">(+ {predictedFinalDelayMin - currentDelayMin}m propagation)</span>}
+          <div className="text-[10px] text-[#9BAFC3] mt-1 font-medium">
+            Predicted final delay: <span className="font-extrabold text-[#3BA7FF]">+{predictedFinalDelayMin} min</span>
+            {isDelayRecovered && <span className="text-[#20C997] font-bold ml-1">(Reclaiming {currentDelayMin - predictedFinalDelayMin}m)</span>}
+            {isDelayExpanded && <span className="text-[#EF5350] font-bold ml-1">(+ {predictedFinalDelayMin - currentDelayMin}m propagation)</span>}
           </div>
         </div>
       </div>
 
-      {/* Explanatory Footer with Clear Judge Value Proposition */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 text-xs">
-        <div className="p-3 rounded-xl neu-pressed-sm bg-slate-100/60 border border-slate-200/50">
-          <div className="font-extrabold text-slate-800 flex items-center gap-1.5 mb-0.5">
-            <AlertCircle className="w-3.5 h-3.5 text-amber-600" />
+        <div className="p-3 rounded-lg bg-[#112438] border border-[#233B52]">
+          <div className="font-extrabold text-[#F4F7FB] flex items-center gap-1.5 mb-0.5">
+            <AlertCircle className="w-3.5 h-3.5 text-[#F5B942]" />
             Why Static ETA Fails:
           </div>
-          <p className="text-[11px] text-slate-600">
-            Calculates <code>Scheduled Arrival + Current Delay</code>. It assumes railway networks are frozen in time, ignoring section clearance, high-speed recovery corridors, and downstream bottlenecks.
+          <p className="text-[11px] text-[#9BAFC3]">
+            Calculates <span className="font-mono text-[#DCEAFB]">Scheduled Arrival + Current Delay</span>. It assumes railway networks are frozen in time, ignoring section clearance, high-speed recovery corridors, and downstream bottlenecks.
           </p>
         </div>
 
-        <div className="p-3 rounded-xl neu-pressed-sm bg-blue-50/60 border border-blue-200/50">
-          <div className="font-extrabold text-blue-900 flex items-center gap-1.5 mb-0.5">
-            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+        <div className="p-3 rounded-lg bg-[#112438] border border-[#233B52]">
+          <div className="font-extrabold text-[#F4F7FB] flex items-center gap-1.5 mb-0.5">
+            <Sparkles className="w-3.5 h-3.5 text-[#3BA7FF]" />
             Why RailETA Dynamic ETA Wins:
           </div>
-          <p className="text-[11px] text-blue-800">
+          <p className="text-[11px] text-[#9BAFC3]">
             Dynamically synthesizes track section congestion, speed restrictions, weather gradient, and priority recovery buffers to forecast how delay actively compresses or expands.
           </p>
         </div>

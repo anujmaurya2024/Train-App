@@ -37,12 +37,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside className="w-full lg:w-64 shrink-0">
-      <div className="neu-flat rounded-2xl p-4 sticky top-24 border border-white/60">
+      <div className="rounded-xl p-4 sticky top-24 border border-[#233B52] bg-[#0D1B2A]">
         <div className="px-3 py-2 mb-3">
-          <p className="text-[11px] uppercase font-bold tracking-wider text-slate-600">
+          <p className="text-[11px] uppercase font-bold tracking-wider text-[#9BAFC3]">
             Navigation Menu
           </p>
-          <p className="text-xs font-semibold text-slate-800">
+          <p className="text-xs font-semibold text-[#F4F7FB]">
             RailETA Control Suite
           </p>
         </div>
@@ -55,22 +55,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <button
                 key={item.id}
                 onClick={() => onViewChange(item.id)}
-                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold transition-all border ${
                   isActive
-                    ? 'neu-pressed text-blue-700 bg-blue-50/70 border border-blue-200/50 shadow-inner'
-                    : 'neu-btn text-slate-600 hover:text-blue-600'
+                    ? 'text-[#3BA7FF] bg-[#112438] border-[#2F80ED]/60'
+                    : 'text-[#9BAFC3] bg-transparent border-transparent hover:bg-[#112438] hover:text-[#F4F7FB]'
                 }`}
               >
                 <div className="flex items-center space-x-2.5">
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-blue-600 stroke-[2.5]' : 'text-slate-500'}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#3BA7FF] stroke-[2.5]' : 'text-[#64798E]'}`} />
                   <span>{item.label}</span>
                 </div>
                 {item.badge && (
                   <span
                     className={`text-[10px] px-2 py-0.5 rounded-md font-semibold ${
                       isActive
-                        ? 'bg-blue-600 text-white'
-                        : 'neu-pressed-sm text-slate-500 bg-slate-100/50'
+                        ? 'bg-[#3BA7FF] text-[#07111F]'
+                        : 'text-[#9BAFC3] bg-[#112438] border border-[#233B52]'
                     }`}
                   >
                     {item.badge}
@@ -81,29 +81,28 @@ export const Sidebar: React.FC<SidebarProps> = ({
           })}
         </nav>
 
-        {/* Quick System Status Card in Sidebar */}
-        <div className="mt-6 pt-4 border-t border-slate-300/40">
-          <div className="neu-pressed rounded-xl p-3 bg-slate-50/50 border border-white/80">
+        <div className="mt-6 pt-4 border-t border-[#233B52]">
+          <div className="rounded-lg p-3 bg-[#112438] border border-[#233B52]">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] uppercase font-bold text-slate-700 tracking-wider">
+              <span className="text-[10px] uppercase font-bold text-[#9BAFC3] tracking-wider">
                 System Status
               </span>
-              <span className="flex items-center gap-1 text-[10px] text-emerald-600 font-bold">
+              <span className="flex items-center gap-1 text-[10px] text-[#20C997] font-bold">
                 <CheckCircle2 className="w-3 h-3" /> ONLINE
               </span>
             </div>
-            <div className="space-y-1.5 text-[11px] text-slate-600 font-medium">
-              <div className="flex justify-between">
+            <div className="space-y-1.5 text-[11px] text-[#9BAFC3] font-medium">
+              <div className="flex justify-between gap-2">
                 <span>Model Type:</span>
-                <span className="font-semibold text-slate-800">Dynamic GBDT+LSTM</span>
+                <span className="font-semibold text-[#F4F7FB]">Dynamic GBDT+LSTM</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between gap-2">
                 <span>Feature Pipeline:</span>
-                <span className="font-semibold text-blue-600">8 Real-time Signals</span>
+                <span className="font-semibold text-[#3BA7FF]">8 Real-time Signals</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between gap-2">
                 <span>Prediction Interval:</span>
-                <span className="font-semibold text-slate-800">Adaptive (Dynamic)</span>
+                <span className="font-semibold text-[#F4F7FB]">Adaptive (Dynamic)</span>
               </div>
             </div>
           </div>
