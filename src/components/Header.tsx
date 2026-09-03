@@ -15,7 +15,7 @@ export const Header: React.FC<HeaderProps> = ({
   isDemoActive,
 }) => {
   return (
-    <header className="sticky top-0 z-30 mb-6 rounded-xl border border-[#233B52] bg-[#07111F]/85 backdrop-blur-sm pb-4 pt-3 px-3 shadow-[0_8px_30px_rgba(0,0,0,0.22)]">
+    <header className="sticky top-0 z-30 mb-6 rounded-xl border border-[#233B52] bg-[#07111F]/90 pb-4 pt-3 px-3" style={{ boxShadow: 'none' }}>
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="flex items-center space-x-3">
           <div className="w-12 h-12 rounded-xl border border-[#233B52] bg-[#0D1B2A] flex items-center justify-center text-[#3BA7FF] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">

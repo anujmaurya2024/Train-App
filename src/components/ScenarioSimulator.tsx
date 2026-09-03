@@ -109,7 +109,7 @@ export const ScenarioSimulator: React.FC<ScenarioSimulatorProps> = ({
   ];
 
   return (
-    <div className="w-full rounded-xl bg-[#0D1B2A] p-5 border border-[#233B52]">
+    <div className="w-full rounded-xl bg-[#0D1B2A] p-5 border border-[#233B52]" style={{ boxShadow: 'none' }}>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-[#233B52]">
         <div className="flex items-center space-x-2">
           <div className="p-2 rounded-xl bg-[#112438] text-[#3BA7FF] border border-[#233B52]">

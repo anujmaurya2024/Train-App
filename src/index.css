@@ -37,9 +37,9 @@
     color: var(--text);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     background-image:
-      linear-gradient(to right, rgba(35, 59, 82, 0.14) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(35, 59, 82, 0.14) 1px, transparent 1px),
-      radial-gradient(circle at top, rgba(59, 167, 255, 0.07), transparent 42%);
+      linear-gradient(to right, rgba(35, 59, 82, 0.10) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(35, 59, 82, 0.10) 1px, transparent 1px),
+      radial-gradient(circle at top, rgba(59, 167, 255, 0.04), transparent 42%);
     background-size: 36px 36px, 36px 36px, 100% 100%;
     background-attachment: fixed;
   }
@@ -53,8 +53,8 @@
 .rail-surface {
   background-color: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+  border-radius: 10px;
+  box-shadow: none;
 }
 
 .rail-surface-alt {
@@ -65,44 +65,44 @@
 
 .rail-surface-elevated {
   background-color: var(--surface-3);
-  border: 1px solid rgba(59, 167, 255, 0.18);
-  border-radius: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
 }
 
 .rail-btn {
   background-color: var(--surface-2);
   border: 1px solid var(--border);
   color: var(--text-secondary);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
 }
 
 .rail-btn:hover {
   background-color: var(--surface-3);
-  border-color: rgba(59, 167, 255, 0.25);
+  border-color: #314F6D;
   color: var(--text);
 }
 
 .rail-btn-active {
-  background-color: rgba(47, 128, 237, 0.12) !important;
-  border-color: rgba(59, 167, 255, 0.5) !important;
+  background-color: rgba(47, 128, 237, 0.10) !important;
+  border-color: rgba(59, 167, 255, 0.45) !important;
   color: var(--live) !important;
 }
 
 .rail-btn-primary {
-  background: linear-gradient(135deg, #1a3d6b 0%, var(--primary) 100%);
-  border: 1px solid rgba(59, 167, 255, 0.6);
-  color: #fff;
-  box-shadow: 0 0 0 1px rgba(59, 167, 255, 0.2), 0 10px 25px rgba(47, 128, 237, 0.2);
+  background: #2F80ED;
+  border: 1px solid #3BA7FF;
+  color: #ffffff;
+  box-shadow: none;
   transition: all 0.2s ease;
 }
 
 .rail-btn-primary:hover {
-  filter: brightness(1.08);
+  background: #3B8EF3;
 }
 
 .rail-live-value {
   color: var(--live);
-  text-shadow: 0 0 14px rgba(59, 167, 255, 0.32);
+  text-shadow: none;
 }
 
 @keyframes pulse-subtle {
@@ -115,8 +115,8 @@
 }
 
 @keyframes highlight-eta {
-  0% { transform: scale(1.06); text-shadow: 0 0 18px rgba(59, 167, 255, 0.6); }
-  100% { transform: scale(1); text-shadow: 0 0 10px rgba(59, 167, 255, 0.28); }
+  0% { transform: scale(1.02); }
+  100% { transform: scale(1); }
 }
 
 .animate-eta-update {

@@ -29,7 +29,7 @@ export const EtaComparisonCard: React.FC<EtaComparisonCardProps> = ({
   const isDelayExpanded = predictedFinalDelayMin > currentDelayMin;
 
   return (
-    <div className="w-full rounded-xl border border-[#233B52] bg-[#0D1B2A] p-5 relative overflow-hidden">
+    <div className="w-full rounded-xl border border-[#233B52] bg-[#0D1B2A] p-5 relative overflow-hidden" style={{ boxShadow: 'none' }}>
       <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-[#233B52]">
         <div className="flex items-center space-x-2">
           <div className="p-1.5 rounded-lg bg-[#112438] text-[#3BA7FF] border border-[#233B52]">

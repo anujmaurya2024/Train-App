@@ -21,7 +21,7 @@ export const RouteTimeline: React.FC<RouteTimelineProps> = ({
   const nextStationIndex = stations.findIndex(s => s.status === 'upcoming');
 
   return (
-    <div className={`w-full ${compact ? 'p-3' : 'p-5'} rounded-xl border border-[#233B52] bg-[#0D1B2A]`}>
+    <div className={`w-full ${compact ? 'p-3' : 'p-5'} rounded-xl border border-[#233B52] bg-[#0D1B2A]`} style={{ boxShadow: 'none' }}>
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="text-sm font-extrabold text-[#F4F7FB] flex items-center gap-2">

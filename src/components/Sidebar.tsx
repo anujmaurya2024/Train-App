@@ -37,7 +37,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside className="w-full lg:w-64 shrink-0">
-      <div className="rounded-xl p-4 sticky top-24 border border-[#233B52] bg-[#0D1B2A]">
+      <div className="rounded-xl p-4 sticky top-24 border border-[#233B52] bg-[#0D1B2A]" style={{ boxShadow: 'none' }}>
         <div className="px-3 py-2 mb-3">
           <p className="text-[11px] uppercase font-bold tracking-wider text-[#9BAFC3]">
             Navigation Menu
