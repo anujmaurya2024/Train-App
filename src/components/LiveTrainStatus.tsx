@@ -1,41 +1,48 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { TrainData, ScenarioLog, StationStop } from '../types/train';
 import { ArrowRight, MapPin, CloudDrizzle, Wind, Sun, Clock } from 'lucide-react';
+import StationModal from './StationModal';
 
 interface Props {
   train: TrainData;
   logs: ScenarioLog[];
+  onSetTrackingStation?: (s: StationStop) => void;
 }
 
 const formatLat = (n: number) => Math.abs(n).toFixed(4) + (n >= 0 ? '° N' : '° S');
 const formatLon = (n: number) => Math.abs(n).toFixed(4) + (n >= 0 ? '° E' : '° W');
 
-export const LiveTrainStatus: React.FC<Props> = ({ train, logs }) => {
+export const LiveTrainStatus: React.FC<Props> = ({ train, logs, onSetTrackingStation }) => {
   // Local simulated position & dynamic ETA
   const [lat, setLat] = useState<number>(27.4924);
   const [lon, setLon] = useState<number>(77.6737);
   const [distanceToNext, setDistanceToNext] = useState<number>(train.distanceToNextKm);
   const [currentSpeed, setCurrentSpeed] = useState<number>(train.speedKmh);
   const [dynamicEta, setDynamicEta] = useState<string>(train.dynamicEta);
+  const [selectedStation, setSelectedStation] = useState<StationStop | null>(null);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  // simulation controls
+  const [speedMultiplier, setSpeedMultiplier] = useState<number>(1);
+  const [updateInterval, setUpdateInterval] = useState<number>(3000);
 
   useEffect(() => {
-    // simple simulation that nudges position and distance every 3s
-    const t = setInterval(() => {
-      setDistanceToNext(d => Math.max(0, +(d - (currentSpeed / 3600 * 3)).toFixed(2)));
-      setLat(l => +(l + 0.0002).toFixed(6));
-      setLon(l => +(l + 0.0001).toFixed(6));
-      // small speed jitter
-      setCurrentSpeed(s => Math.max(0, Math.round((s + (Math.random() * 4 - 2)) * 10) / 10));
-      // update dynamic ETA visually by shifting minutes slightly when distance changes
+    // simulation loop using configurable interval and speed multiplier
+    const tick = () => {
+      setDistanceToNext(d => Math.max(0, +(d - ((currentSpeed * speedMultiplier) / 3600 * (updateInterval / 1000))).toFixed(2)));
+      setLat(l => +(l + 0.0002 * speedMultiplier).toFixed(6));
+      setLon(l => +(l + 0.0001 * speedMultiplier).toFixed(6));
+      setCurrentSpeed(s => Math.max(0, Math.round((s + (Math.random() * 4 - 2) * speedMultiplier) * 10) / 10));
       setDynamicEta(prev => {
         const m = parseInt(prev.split(':')[1] || '0', 10);
         const add = distanceToNext > 40 ? 2 : distanceToNext > 30 ? 1 : 0;
         const newMin = Math.min(59, m + (Math.random() < 0.3 ? add : 0));
         return prev.split(':')[0] + ':' + String(newMin).padStart(2, '0');
       });
-    }, 3000);
-    return () => clearInterval(t);
-  }, [currentSpeed, distanceToNext]);
+    };
+    const id = setInterval(tick, updateInterval);
+    return () => clearInterval(id);
+  }, [currentSpeed, distanceToNext, updateInterval, speedMultiplier]);
 
   useEffect(() => {
     // if parent train updates, reset key values
@@ -48,6 +55,20 @@ export const LiveTrainStatus: React.FC<Props> = ({ train, logs }) => {
 
   return (
     <div className="space-y-5">
+      {/* Simulation controls */}
+      <div className="rounded-lg p-3 bg-white border border-slate-200 flex items-center gap-4">
+        <div className="text-sm font-bold">Simulation Controls</div>
+        <div className="flex items-center gap-3 text-sm">
+          <label className="text-xs text-slate-500">Speed Multiplier</label>
+          <input type="range" min="0.25" max="2" step="0.05" value={speedMultiplier} onChange={(e) => setSpeedMultiplier(Number(e.target.value))} />
+          <div className="text-xs font-mono">{speedMultiplier}×</div>
+        </div>
+        <div className="flex items-center gap-3 text-sm">
+          <label className="text-xs text-slate-500">Update Interval</label>
+          <input type="range" min="250" max="5000" step="250" value={updateInterval} onChange={(e) => setUpdateInterval(Number(e.target.value))} />
+          <div className="text-xs font-mono">{updateInterval} ms</div>
+        </div>
+      </div>
       {/* Header */}
       <div className="rounded-xl rail-surface p-5 flex items-center justify-between">
         <div>
@@ -218,7 +239,7 @@ export const LiveTrainStatus: React.FC<Props> = ({ train, logs }) => {
             </thead>
             <tbody className="font-medium divide-y divide-slate-100">
               {train.routeStations.map((s: StationStop, idx) => (
-                <tr key={s.id} className={s.status === 'current' ? 'bg-sky-50' : ''}>
+                <tr key={s.id} className={s.status === 'current' ? 'bg-sky-50 cursor-pointer' : 'cursor-pointer'} onClick={() => { setSelectedStation(s); setModalOpen(true); }}>
                   <td className="py-2 px-2 font-bold">{s.name}</td>
                   <td className="py-2 px-2">{s.distanceKm} km</td>
                   <td className="py-2 px-2">{s.scheduledArrival}</td>
@@ -234,6 +255,9 @@ export const LiveTrainStatus: React.FC<Props> = ({ train, logs }) => {
           </table>
         </div>
       </div>
+
+      {/* Station detail modal */}
+      <StationModal station={selectedStation} open={modalOpen} onClose={() => setModalOpen(false)} onSetTracking={(s) => { if (onSetTrackingStation) onSetTrackingStation(s); }} />
 
       {/* Timeline + Insights + Events */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">

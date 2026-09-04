@@ -277,7 +277,7 @@ export const App: React.FC = () => {
 
             {currentView === 'live-train' && (
               <div className="space-y-6">
-                <LiveTrainStatus train={selectedTrain} logs={eventLogs} />
+                <LiveTrainStatus train={selectedTrain} logs={eventLogs} onSetTrackingStation={(s) => addLog('Set Tracking Station', `Now tracking ${s.name}`, selectedTrain.dynamicEta, '+0 min', 'info')} />
               </div>
             )}
 
