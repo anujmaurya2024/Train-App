@@ -17,6 +17,7 @@ import { DelayPropagationView } from './components/DelayPropagationView';
 import { ArchitectureModal } from './components/ArchitectureModal';
 import { PresentationMode } from './components/PresentationMode';
 import { DemoModal } from './components/DemoModal';
+import LiveTrainStatus from './components/LiveTrainStatus';
 import { Train, Activity, AlertTriangle, CheckCircle2, Clock, ArrowUpRight, Sparkles } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -276,64 +277,7 @@ export const App: React.FC = () => {
 
             {currentView === 'live-train' && (
               <div className="space-y-6">
-                <div className="rounded-2xl neu-flat p-5 border border-white/80 space-y-4">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-300/40">
-                    <div>
-                      <div className="flex items-center gap-2.5">
-                        <span className="text-2xl font-black font-mono text-slate-900 bg-white px-3 py-0.5 rounded-xl neu-flat-sm">{selectedTrain.number}</span>
-                        <h2 className="text-2xl font-black text-blue-800">{selectedTrain.name}</h2>
-                      </div>
-                      <p className="text-xs text-slate-600 font-semibold mt-1">Corridor Route: <span className="text-slate-800 font-extrabold">{selectedTrain.origin} &rarr; {selectedTrain.destination}</span></p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-slate-500">Switch Train:</span>
-                      {trains.map(t => (
-                        <button key={t.id} onClick={() => setSelectedTrainId(t.id)} className={'px-3 py-1.5 rounded-xl text-xs font-bold transition-all ' + (selectedTrainId === t.id ? 'neu-pressed text-blue-700 bg-blue-100/60 font-black' : 'neu-btn text-slate-600 hover:text-blue-600')}>
-                          {t.number}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 text-center text-xs">
-                    <div className="p-3 rounded-xl neu-pressed bg-slate-50 border border-white">
-                      <span className="text-[10px] uppercase font-bold text-slate-400 block">Section</span>
-                      <span className="font-extrabold text-slate-800 truncate block mt-0.5">{selectedTrain.currentSection}</span>
-                    </div>
-                    <div className="p-3 rounded-xl neu-pressed bg-slate-50 border border-white">
-                      <span className="text-[10px] uppercase font-bold text-slate-400 block">Progress</span>
-                      <span className="font-extrabold text-blue-700 block mt-0.5">{selectedTrain.journeyProgress}%</span>
-                    </div>
-                    <div className="p-3 rounded-xl neu-pressed bg-slate-50 border border-white">
-                      <span className="text-[10px] uppercase font-bold text-slate-400 block">Speed</span>
-                      <span className="font-extrabold text-slate-800 font-mono block mt-0.5">{selectedTrain.speedKmh} km/h</span>
-                    </div>
-                    <div className="p-3 rounded-xl neu-pressed bg-amber-50 border border-amber-200">
-                      <span className="text-[10px] uppercase font-bold text-amber-700 block">Delay</span>
-                      <span className="font-extrabold text-amber-800 font-mono block mt-0.5">+{selectedTrain.currentDelayMin} min</span>
-                    </div>
-                    <div className="p-3 rounded-xl neu-pressed bg-slate-50 border border-white">
-                      <span className="text-[10px] uppercase font-bold text-slate-400 block">Next Halt</span>
-                      <span className="font-extrabold text-slate-800 block mt-0.5">{selectedTrain.distanceToNextKm} km</span>
-                    </div>
-                    <div className="p-3 rounded-xl neu-pressed bg-slate-50 border border-white">
-                      <span className="text-[10px] uppercase font-bold text-slate-400 block">Congestion</span>
-                      <span className="font-extrabold text-blue-700 block mt-0.5">{selectedTrain.congestion}</span>
-                    </div>
-                    <div className="p-3 rounded-xl neu-pressed bg-emerald-50 border border-emerald-200">
-                      <span className="text-[10px] uppercase font-bold text-emerald-700 block">Recovery Pot.</span>
-                      <span className="font-extrabold text-emerald-800 block mt-0.5">{selectedTrain.recoveryPotential}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <EtaComparisonCard scheduledEta={selectedTrain.scheduledEta} staticEta={selectedTrain.staticEta} dynamicEta={selectedTrain.dynamicEta} confidenceScore={selectedTrain.confidenceScore} arrivalWindow={selectedTrain.arrivalWindow} currentDelayMin={selectedTrain.currentDelayMin} predictedFinalDelayMin={selectedTrain.predictedFinalDelayMin} previousDynamicEta={previousDynamicEta} />
-                <RouteTimeline stations={selectedTrain.routeStations} currentSpeed={selectedTrain.speedKmh} currentSection={selectedTrain.currentSection} fromStation={selectedTrain.fromStation} toStation={selectedTrain.toStation} />
-                <ScenarioSimulator currentScenario={currentScenario} onSelectScenario={handleSelectScenario} onReset={() => handleSelectScenario('NORMAL')} activeNotification={activeNotification} />
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <LiveFeaturePanel train={selectedTrain} />
-                  <DelayEvolutionChart train={selectedTrain} />
-                </div>
+                <LiveTrainStatus train={selectedTrain} logs={eventLogs} />
               </div>
             )}
 
