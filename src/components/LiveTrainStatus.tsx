@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { TrainData, ScenarioLog, StationStop } from '../types/train';
 import { ArrowRight, MapPin, CloudDrizzle, Wind, Sun, Clock } from 'lucide-react';
 import StationModal from './StationModal';
@@ -53,6 +53,23 @@ export const LiveTrainStatus: React.FC<Props> = ({ train, logs, onSetTrackingSta
 
   const nextStation = useMemo(() => train.routeStations.find(s => s.status === 'upcoming') || train.routeStations[0], [train]);
 
+  // refs for map and marker to implement centering
+  const mapRef = useRef<HTMLDivElement | null>(null);
+  const markerRef = useRef<HTMLDivElement | null>(null);
+
+  const markerTop = useMemo(() => {
+    const progress = Math.max(0, Math.min(1, (train.totalDistanceKm - train.distanceRemainingKm) / Math.max(1, train.totalDistanceKm)));
+    const start = 10; const end = 390; // px coordinates used above
+    return Math.round(start + progress * (end - start));
+  }, [train.totalDistanceKm, train.distanceRemainingKm]);
+
+  const centerOnMarker = () => {
+    if (!mapRef.current || !markerRef.current) return;
+    const markerOffset = markerRef.current.offsetTop;
+    const scrollTop = Math.max(0, markerOffset - mapRef.current.clientHeight / 2);
+    mapRef.current.scrollTo({ top: scrollTop, behavior: 'smooth' });
+  };
+
   return (
     <div className="space-y-5">
       {/* Simulation controls */}
@@ -98,20 +115,35 @@ export const LiveTrainStatus: React.FC<Props> = ({ train, logs, onSetTrackingSta
             <h3 className="text-lg font-extrabold">Current Train Location</h3>
             <div className="flex items-center gap-2">
               <button className="px-3 py-1 rounded bg-slate-100 text-slate-700">View Route</button>
-              <button className="px-3 py-1 rounded bg-slate-100 text-slate-700">Center Train</button>
+              <button onClick={centerOnMarker} className="px-3 py-1 rounded bg-slate-100 text-slate-700">Center Train</button>
               <button className="px-3 py-1 rounded bg-slate-100 text-slate-700">Show Stations</button>
             </div>
           </div>
 
           <div className="flex gap-4">
-            <div className="w-2/3 h-56 bg-gradient-to-b from-slate-50 to-white rounded-lg border border-slate-200 flex items-center justify-center relative">
-              {/* schematic route */}
-              <div className="absolute left-6 top-6 text-sm font-bold">Delhi</div>
-              <div className="absolute left-6 top-20 text-sm">Mathura</div>
-              <div className="absolute left-6 top-36 text-sm font-black text-blue-700">🚆 TRAIN</div>
-              <div className="absolute left-6 top-44 text-sm">Agra</div>
-              <div className="absolute left-6 top-56 text-sm">Gwalior</div>
-              <div className="absolute bottom-6 right-6 text-xs bg-slate-50 px-2 py-1 rounded shadow">{train.number} • {currentSpeed} km/h • +{train.currentDelayMin} min</div>
+            <div ref={mapRef} className="w-2/3 h-56 bg-gradient-to-b from-slate-50 to-white rounded-lg border border-slate-200 relative overflow-auto">
+              {/* long route column so scrolling/centering works */}
+              <div style={{ height: 420, position: 'relative' }}>
+                <div style={{ position: 'absolute', left: 20, top: 10 }} className="text-sm font-bold">Delhi</div>
+                <div style={{ position: 'absolute', left: 20, top: 90 }} className="text-sm">Mathura</div>
+                <div style={{ position: 'absolute', left: 20, top: 170 }} className="text-sm">Agra</div>
+                <div style={{ position: 'absolute', left: 20, top: 250 }} className="text-sm">Gwalior</div>
+                <div style={{ position: 'absolute', left: 20, top: 330 }} className="text-sm">Jhansi</div>
+                <div style={{ position: 'absolute', left: 20, top: 390 }} className="text-sm">Bina</div>
+
+                {/* train marker - position based on progress */}
+                <div ref={markerRef} style={{
+                  position: 'absolute',
+                  left: 80,
+                  top: `${markerTop}px`,
+                  transition: 'top 800ms ease',
+                }} className="flex items-center gap-2 bg-white px-2 py-1 rounded shadow">
+                  <div className="font-mono font-black text-slate-900">{train.number}</div>
+                  <div className="text-xs text-slate-600">{currentSpeed} km/h</div>
+                  <div className="text-xs text-amber-600">+{train.currentDelayMin}m</div>
+                </div>
+              </div>
+              <div className="absolute bottom-3 right-3 text-xs bg-slate-50 px-2 py-1 rounded shadow">Route schematic</div>
             </div>
 
             <div className="w-1/3 space-y-3">
@@ -131,6 +163,9 @@ export const LiveTrainStatus: React.FC<Props> = ({ train, logs, onSetTrackingSta
                 <div className="text-xs text-slate-500 mt-2">Avg Speed: <span className="font-bold">{train.speedKmh} km/h</span></div>
                 <div className="text-xs text-slate-500">Max Allowed: <span className="font-bold">110 km/h</span></div>
                 <div className="text-xs text-slate-500">Direction: <span className="font-bold">Southbound</span></div>
+                <div className="mt-3 flex gap-2">
+                  <button onClick={centerOnMarker} className="px-2 py-1 rounded bg-slate-100 text-slate-700 text-xs">Center Train</button>
+                </div>
               </div>
             </div>
           </div>
