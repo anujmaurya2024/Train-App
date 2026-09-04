@@ -109,20 +109,20 @@ export const ScenarioSimulator: React.FC<ScenarioSimulatorProps> = ({
   ];
 
   return (
-    <div className="w-full rounded-xl bg-[#0D1B2A] p-5 border border-[#233B52]" style={{ boxShadow: 'none' }}>
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-[#233B52]">
+    <div className="w-full rounded-xl bg-white p-5 border border-slate-200" style={{ boxShadow: 'none' }}>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-200">
         <div className="flex items-center space-x-2">
-          <div className="p-2 rounded-xl bg-[#112438] text-[#3BA7FF] border border-[#233B52]">
+          <div className="p-2 rounded-xl bg-sky-50 text-blue-600 border border-sky-200">
             <Sliders className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-base font-black text-[#F4F7FB] flex items-center gap-2">
+            <h2 className="text-base font-black text-slate-900 flex items-center gap-2">
               Live Scenario Simulator
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#112438] text-[#3BA7FF] font-bold border border-[#233B52]">
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-sky-50 text-blue-600 font-bold border border-sky-200">
                 Interactive Test Bench
               </span>
             </h2>
-            <p className="text-xs text-[#9BAFC3] font-medium">
+            <p className="text-xs text-slate-600 font-medium">
               Simulate operational perturbations and observe dynamic ETA adjustments instantly
             </p>
           </div>
@@ -130,7 +130,7 @@ export const ScenarioSimulator: React.FC<ScenarioSimulatorProps> = ({
 
         <button
           onClick={onReset}
-          className="px-3 py-1.5 rounded-lg text-xs font-bold text-[#DCEAFB] bg-[#112438] border border-[#233B52] hover:border-[#3BA7FF]/40 flex items-center gap-1.5 self-start sm:self-auto"
+          className="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-700 bg-slate-50 border border-slate-200 hover:border-blue-200 flex items-center gap-1.5 self-start sm:self-auto"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           Reset to Baseline
@@ -138,11 +138,11 @@ export const ScenarioSimulator: React.FC<ScenarioSimulatorProps> = ({
       </div>
 
       {activeNotification && (
-        <div className="mb-4 p-3 rounded-lg bg-[#2F2415] border border-[#F5B942]/30 flex items-center gap-3">
-          <div className="p-1.5 rounded-lg bg-[#F5B942] text-[#07111F] font-bold text-xs flex items-center justify-center">
+        <div className="mb-4 p-3 rounded-lg bg-amber-50 border border-amber-200 flex items-center gap-3">
+          <div className="p-1.5 rounded-lg bg-amber-400 text-slate-900 font-bold text-xs flex items-center justify-center">
             <Play className="w-3.5 h-3.5 fill-current" />
           </div>
-          <div className="text-xs font-bold text-[#F5B942]">
+          <div className="text-xs font-bold text-amber-700">
             {activeNotification}
           </div>
         </div>
@@ -159,30 +159,30 @@ export const ScenarioSimulator: React.FC<ScenarioSimulatorProps> = ({
               onClick={() => onSelectScenario(btn.id)}
               className={`p-3.5 rounded-xl text-left transition-all duration-200 relative overflow-hidden group border ${
                 isActive
-                  ? `bg-[#112438] ${btn.borderClass} border-2 scale-[0.99]`
-                  : 'bg-[#0D1B2A] border-transparent hover:bg-[#112438] hover:border-[#233B52]'
+                  ? `bg-sky-50 ${btn.borderClass} border-2 scale-[0.99]`
+                  : 'bg-white border-transparent hover:bg-slate-50 hover:border-slate-200'
               }`}
             >
               <div className="flex items-start space-x-3">
                 <div
                   className={`p-2 rounded-lg transition-all border ${
-                    isActive ? 'bg-[#3BA7FF] text-[#07111F] border-[#3BA7FF]' : 'bg-[#112438] ' + btn.colorClass + ' border-[#233B52]'
+                    isActive ? 'bg-blue-600 text-white border-blue-600' : 'bg-slate-100 ' + btn.colorClass + ' border-slate-200'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
-                    <span className={`text-xs font-extrabold truncate ${isActive ? 'text-[#3BA7FF]' : 'text-[#F4F7FB]'}`}>
+                    <span className={`text-xs font-extrabold truncate ${isActive ? 'text-blue-600' : 'text-slate-800'}`}>
                       {btn.label}
                     </span>
                     {isActive && (
-                      <span className="text-[9px] font-black uppercase px-1.5 py-0.2 rounded bg-[#3BA7FF] text-[#07111F]">
+                      <span className="text-[9px] font-black uppercase px-1.5 py-0.2 rounded bg-blue-600 text-white">
                         ACTIVE
                       </span>
                     )}
                   </div>
-                  <p className="text-[11px] text-[#9BAFC3] mt-1 line-clamp-2 leading-relaxed font-medium">
+                  <p className="text-[11px] text-slate-600 mt-1 line-clamp-2 leading-relaxed font-medium">
                     {btn.description}
                   </p>
                 </div>
@@ -192,9 +192,9 @@ export const ScenarioSimulator: React.FC<ScenarioSimulatorProps> = ({
         })}
       </div>
 
-      <div className="mt-4 pt-3 border-t border-[#233B52] flex items-center justify-between text-[11px] text-[#9BAFC3] font-medium">
+      <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-600 font-medium">
         <span>💡 Click any scenario button during SIH jury demonstration to trigger dynamic recalculated ETAs.</span>
-        <span className="font-bold text-[#DCEAFB]">No backend call needed • Client-side Reactive State</span>
+        <span className="font-bold text-slate-700">No backend call needed • Client-side Reactive State</span>
       </div>
     </div>
   );

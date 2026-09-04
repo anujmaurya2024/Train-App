@@ -21,23 +21,23 @@ export const RouteTimeline: React.FC<RouteTimelineProps> = ({
   const nextStationIndex = stations.findIndex(s => s.status === 'upcoming');
 
   return (
-    <div className={`w-full ${compact ? 'p-3' : 'p-5'} rounded-xl border border-[#233B52] bg-[#0D1B2A]`} style={{ boxShadow: 'none' }}>
+    <div className={`w-full ${compact ? 'p-3' : 'p-5'} rounded-xl border border-slate-200 bg-white`} style={{ boxShadow: 'none' }}>
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-sm font-extrabold text-[#F4F7FB] flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-[#3BA7FF]" />
+          <h3 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-blue-600" />
             Active Route Corridor & Station Checkpoints
           </h3>
-          <p className="text-[11px] text-[#9BAFC3] font-medium">
+          <p className="text-[11px] text-slate-600 font-medium">
             Delhi - Bhopal High-Density Trunk Route (702 km)
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="px-2.5 py-1 rounded-lg text-xs font-bold text-[#3BA7FF] bg-[#112438] border border-[#233B52] flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#3BA7FF] animate-ping"></span>
+          <span className="px-2.5 py-1 rounded-lg text-xs font-bold text-blue-600 bg-sky-50 border border-sky-200 flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-blue-500 animate-ping"></span>
             Section: {currentSection}
           </span>
-          <span className="px-2.5 py-1 rounded-lg text-xs font-bold text-[#20C997] bg-[#112B25] border border-[#20C997]/20">
+          <span className="px-2.5 py-1 rounded-lg text-xs font-bold text-emerald-600 bg-emerald-50 border border-emerald-200">
             {currentSpeed} km/h
           </span>
         </div>
@@ -45,9 +45,9 @@ export const RouteTimeline: React.FC<RouteTimelineProps> = ({
 
       <div className="relative overflow-x-auto pb-4 pt-2">
         <div className="flex items-center justify-between min-w-[720px] px-4 relative">
-          <div className="absolute top-7 left-8 right-8 h-2 bg-[#162B40] rounded-full border border-[#233B52] z-0">
+          <div className="absolute top-7 left-8 right-8 h-2 bg-slate-200 rounded-full border border-slate-200 z-0">
             <div
-              className="h-full bg-gradient-to-r from-[#20C997] via-[#3BA7FF] to-[#F5B942] rounded-full transition-all duration-700"
+              className="h-full bg-gradient-to-r from-emerald-500 via-blue-500 to-amber-500 rounded-full transition-all duration-700"
               style={{
                 width: `${Math.max(10, Math.min(100, (nextStationIndex / (stations.length - 1)) * 100))}%`,
               }}
@@ -63,17 +63,17 @@ export const RouteTimeline: React.FC<RouteTimelineProps> = ({
                 <div
                   className={`w-12 h-12 rounded-xl flex flex-col items-center justify-center transition-all duration-300 border ${
                     isPassed
-                      ? 'text-[#20C997] bg-[#102B25] border-[#20C997]/30'
+                      ? 'text-emerald-600 bg-emerald-50 border-emerald-200'
                       : isNext
-                      ? 'text-[#3BA7FF] bg-[#10233B] border-[#3BA7FF]/50 scale-110'
-                      : 'text-[#64798E] bg-[#112438] border-[#233B52]'
+                      ? 'text-blue-600 bg-sky-50 border-blue-200 scale-110'
+                      : 'text-slate-500 bg-slate-100 border-slate-200'
                   }`}
                 >
                   {isPassed ? (
                     <CheckCircle2 className="w-5 h-5 stroke-[2.5]" />
                   ) : isNext ? (
                     <div className="relative flex items-center justify-center">
-                      <span className="w-3.5 h-3.5 rounded-full bg-[#3BA7FF] animate-pulse"></span>
+                      <span className="w-3.5 h-3.5 rounded-full bg-blue-500 animate-pulse"></span>
                     </div>
                   ) : (
                     <Clock className="w-4 h-4" />
@@ -87,34 +87,34 @@ export const RouteTimeline: React.FC<RouteTimelineProps> = ({
                   <div className="flex items-center justify-center gap-1">
                     <span
                       className={`text-xs font-bold block ${
-                        isNext ? 'text-[#3BA7FF] font-extrabold scale-105' : 'text-[#DCEAFB]'
+                        isNext ? 'text-blue-600 font-extrabold scale-105' : 'text-slate-700'
                       }`}
                     >
                       {stn.name}
                     </span>
                     {isNext && (
-                      <span className="px-1.5 py-0.2 rounded text-[9px] font-black bg-[#F5B942] text-[#07111F]">
+                      <span className="px-1.5 py-0.2 rounded text-[9px] font-black bg-amber-400 text-slate-900">
                         NEXT
                       </span>
                     )}
                   </div>
 
                   <div className="mt-1 space-y-0.5 text-[10px]">
-                    <div className="text-[#9BAFC3]">
-                      Sch: <span className="font-semibold text-[#DCEAFB]">{stn.scheduledArrival}</span>
+                    <div className="text-slate-500">
+                      Sch: <span className="font-semibold text-slate-700">{stn.scheduledArrival}</span>
                     </div>
                     {stn.predictedArrival && (
-                      <div className="font-bold text-[#3BA7FF]">
+                      <div className="font-bold text-blue-600">
                         Dyn: <span>{stn.predictedArrival}</span>
                         {stn.predictedDelayMin !== undefined && stn.predictedDelayMin > 0 && (
-                          <span className="text-[#F5B942] ml-1">
+                          <span className="text-amber-600 ml-1">
                             (+{stn.predictedDelayMin}m)
                           </span>
                         )}
                       </div>
                     )}
                     {isPassed && (
-                      <span className="text-[9px] text-[#20C997] font-bold">
+                      <span className="text-[9px] text-emerald-600 font-bold">
                         Departed ✓
                       </span>
                     )}
@@ -123,7 +123,7 @@ export const RouteTimeline: React.FC<RouteTimelineProps> = ({
 
                 {isPassed && idx === nextStationIndex - 1 && (
                   <div className="absolute -right-10 top-4 z-20 flex flex-col items-center animate-pulse">
-                    <div className="px-2 py-0.5 bg-[#3BA7FF] text-[#07111F] text-[9px] font-black rounded-full flex items-center gap-1">
+                    <div className="px-2 py-0.5 bg-blue-600 text-white text-[9px] font-black rounded-full flex items-center gap-1">
                       <span>TRAIN ON BLOCK</span>
                       <ArrowRight className="w-2.5 h-2.5" />
                     </div>
@@ -135,19 +135,19 @@ export const RouteTimeline: React.FC<RouteTimelineProps> = ({
         </div>
       </div>
 
-      <div className="flex items-center justify-between pt-3 border-t border-[#233B52] text-[11px] text-[#9BAFC3]">
+      <div className="flex items-center justify-between pt-3 border-t border-slate-200 text-[11px] text-slate-500">
         <div className="flex items-center space-x-4">
           <span className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#20C997]"></span> Passed Station
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Passed Station
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#3BA7FF]"></span> Next Scheduled Stop
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-500"></span> Next Scheduled Stop
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#64798E]"></span> Upcoming Stations
+            <span className="w-2.5 h-2.5 rounded-full bg-slate-400"></span> Upcoming Stations
           </span>
         </div>
-        <span className="font-semibold text-[#DCEAFB]">
+        <span className="font-semibold text-slate-700">
           Sectional Max Permissible Speed: 130 km/h
         </span>
       </div>

@@ -5,20 +5,20 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
-  --bg: #07111F;
-  --surface: #0D1B2A;
-  --surface-2: #112438;
-  --surface-3: #162B40;
-  --border: #233B52;
-  --primary: #2F80ED;
-  --live: #3BA7FF;
-  --success: #20C997;
-  --warning: #F5B942;
-  --critical: #EF5350;
-  --text: #F4F7FB;
-  --text-secondary: #9BAFC3;
-  --text-muted: #64798E;
+  color-scheme: light;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --surface-3: #eef6ff;
+  --border: #dbe5f0;
+  --primary: #2563eb;
+  --live: #0ea5e9;
+  --success: #16a34a;
+  --warning: #d97706;
+  --critical: #dc2626;
+  --text: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
 }
 
 @layer base {
@@ -37,9 +37,9 @@
     color: var(--text);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     background-image:
-      linear-gradient(to right, rgba(35, 59, 82, 0.10) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(35, 59, 82, 0.10) 1px, transparent 1px),
-      radial-gradient(circle at top, rgba(59, 167, 255, 0.04), transparent 42%);
+      linear-gradient(to right, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+      radial-gradient(circle at top, rgba(14, 165, 233, 0.06), transparent 42%);
     background-size: 36px 36px, 36px 36px, 100% 100%;
     background-attachment: fixed;
   }
