@@ -39,6 +39,8 @@ dist-ssr
 
 .venv311/
 data/
+!src/data/
+!src/data/*.ts
 dist/
 node_modules/
 __pycache__/

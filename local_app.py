@@ -2,14 +2,21 @@
 import joblib
 import pandas as pd
 from datetime import datetime
+from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import uvicorn
 
-# 1. Load the production model
-# Ensure rail_eta_prod_model_v2.pkl is in the same directory
-model = joblib.load('rail_eta_prod_model_v2.pkl')
+MODEL_PATH = Path(__file__).parent / "rail_eta_prod_model_v2.pkl"
+model = None
+
+
+def get_model():
+    global model
+    if model is None:
+        model = joblib.load(MODEL_PATH)
+    return model
 
 app = FastAPI()
 
@@ -20,6 +27,20 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+DATASET_PATH = Path(__file__).parent / "data" / "kaggle" / "ir_train.csv"
+
+
+@app.get("/dataset-trains")
+def dataset_trains():
+    columns = [
+        "journey_id", "train_number", "train_type", "zone", "zone_abbr",
+        "source_station_category", "destination_station_category", "distance_km",
+        "num_scheduled_stops", "scheduled_travel_hours", "departure_hour",
+        "fog_risk_score", "zone_congestion_index", "delay_minutes", "is_delayed",
+    ]
+    rows = pd.read_csv(DATASET_PATH, usecols=columns, nrows=4).fillna(0)
+    return rows.to_dict(orient="records")
 
 class PredictionRequest(BaseModel):
     operator: str
@@ -38,7 +59,7 @@ def predict(data: PredictionRequest):
         data.scheduled_departure, data.weather_delay
     ]], columns=['TRAIN_OPERATOR', 'MONTH', 'DAY', 'DAY_OF_WEEK', 'DISTANCE_KM', 'SCHEDULED_DEPARTURE', 'WEATHER_DELAY'])
     
-    prediction = model.predict(input_df)[0]
+    prediction = get_model().predict(input_df)[0]
     return {"predicted_delay": round(float(prediction), 2)}
 
 
@@ -100,7 +121,7 @@ def predict_train_demo(data: TrainDemoPredictionRequest):
             weather_delay,
         ]], columns=['TRAIN_OPERATOR', 'MONTH', 'DAY', 'DAY_OF_WEEK', 'DISTANCE_KM', 'SCHEDULED_DEPARTURE', 'WEATHER_DELAY'])
 
-        prediction = float(model.predict(input_df)[0])
+        prediction = float(get_model().predict(input_df)[0])
         predicted_final_delay = max(0.0, round(prediction, 1))
 
         return {

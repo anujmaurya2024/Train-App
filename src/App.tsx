@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TrainData, ScenarioType, ScenarioLog } from './types/train';
 import { INITIAL_TRAINS } from './data/trainData';
+import { loadDatasetTrains } from './data/datasetLoader';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { RouteTimeline } from './components/RouteTimeline';
@@ -32,6 +33,16 @@ export const App: React.FC = () => {
     { id: 'log-4', timestamp: '10:25:05', event: 'Restriction Cleared & Green Aspect', detail: 'Clear block headway restored', dynamicEta: '10:59', delayChange: '+10 min', type: 'info' },
     { id: 'log-5', timestamp: '10:28:30', event: 'Recovery Section Acceleration', detail: 'Speed raised to 78 km/h on double-line Jhansi corridor', dynamicEta: '10:59', delayChange: '+9 min', type: 'success' }
   ]);
+
+  useEffect(() => {
+    loadDatasetTrains()
+      .then(datasetTrains => {
+        if (datasetTrains.length > 0) setTrains(datasetTrains);
+      })
+      .catch(() => {
+        // Keep the bundled sample data available when the dataset service is offline.
+      });
+  }, []);
 
   const selectedTrain = trains.find(t => t.id === selectedTrainId) || trains[0];
 
