@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 06c5aa7836bdf60af6bf0944f37bd4f51ea2c571
 .venv/
 venv/
 .venv311/
@@ -16,7 +19,10 @@ data/kaggle/ir_test.csv
 
 dist/
 node_modules/
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 06c5aa7836bdf60af6bf0944f37bd4f51ea2c571
 node_modules
 dist
 dist-ssr
@@ -37,4 +43,7 @@ dist/
 node_modules/
 __pycache__/
 *.pyc
+<<<<<<< HEAD
 >>>>>>> main
+=======
+>>>>>>> 06c5aa7836bdf60af6bf0944f37bd4f51ea2c571
