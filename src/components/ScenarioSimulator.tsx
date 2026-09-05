@@ -109,7 +109,7 @@ export const ScenarioSimulator: React.FC<ScenarioSimulatorProps> = ({
   ];
 
   return (
-    <div className="w-full rounded-xl bg-white p-5 border border-slate-200" style={{ boxShadow: 'none' }}>
+    <div className="w-full rounded-2xl bg-white p-4 sm:p-5 border border-slate-200 shadow-sm">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-200">
         <div className="flex items-center space-x-2">
           <div className="p-2 rounded-xl bg-sky-50 text-blue-600 border border-sky-200">
@@ -130,7 +130,7 @@ export const ScenarioSimulator: React.FC<ScenarioSimulatorProps> = ({
 
         <button
           onClick={onReset}
-          className="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-700 bg-slate-50 border border-slate-200 hover:border-blue-200 flex items-center gap-1.5 self-start sm:self-auto"
+          className="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-700 bg-slate-50 border border-slate-200 hover:border-blue-200 hover:bg-white transition-colors flex items-center gap-1.5 self-start sm:self-auto"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           Reset to Baseline
@@ -138,7 +138,7 @@ export const ScenarioSimulator: React.FC<ScenarioSimulatorProps> = ({
       </div>
 
       {activeNotification && (
-        <div className="mb-4 p-3 rounded-lg bg-amber-50 border border-amber-200 flex items-center gap-3">
+        <div className="toast-enter mb-4 p-3 rounded-xl bg-amber-50 border border-amber-200 flex items-center gap-3" role="status" aria-live="polite">
           <div className="p-1.5 rounded-lg bg-amber-400 text-slate-900 font-bold text-xs flex items-center justify-center">
             <Play className="w-3.5 h-3.5 fill-current" />
           </div>
@@ -157,10 +157,11 @@ export const ScenarioSimulator: React.FC<ScenarioSimulatorProps> = ({
             <button
               key={btn.id}
               onClick={() => onSelectScenario(btn.id)}
-              className={`p-3.5 rounded-xl text-left transition-all duration-200 relative overflow-hidden group border ${
+              aria-pressed={isActive}
+              className={`interactive-card p-3.5 rounded-xl text-left relative overflow-hidden group border ${
                 isActive
-                  ? `bg-sky-50 ${btn.borderClass} border-2 scale-[0.99]`
-                  : 'bg-white border-transparent hover:bg-slate-50 hover:border-slate-200'
+                  ? `bg-sky-50 ${btn.borderClass} border-2 shadow-sm`
+                  : 'bg-white border-slate-100 hover:bg-slate-50 hover:border-slate-200'
               }`}
             >
               <div className="flex items-start space-x-3">
