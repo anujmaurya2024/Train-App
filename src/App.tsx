@@ -18,7 +18,8 @@ import { ArchitectureModal } from './components/ArchitectureModal';
 import { PresentationMode } from './components/PresentationMode';
 import { DemoModal } from './components/DemoModal';
 import LiveTrainStatus from './components/LiveTrainStatus';
-import { Train, Activity, AlertTriangle, CheckCircle2, Clock, ArrowUpRight, Sparkles } from 'lucide-react';
+import { TrainPredictionPanel } from './components/TrainPredictionPanel';
+import { Train, AlertTriangle, CheckCircle2, Clock, ArrowUpRight, Sparkles } from 'lucide-react';
 
 export const App: React.FC = () => {
   const [trains, setTrains] = useState<TrainData[]>(INITIAL_TRAINS);
@@ -144,16 +145,17 @@ export const App: React.FC = () => {
   const avgConfidence = Math.round(trains.reduce((acc, t) => acc + t.confidenceScore, 0) / trains.length);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 p-3 sm:p-6 transition-colors font-sans">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className="min-h-screen text-slate-900 p-3 sm:p-5 lg:p-6 transition-colors font-sans">
+      <div className="mx-auto max-w-[1440px] space-y-5">
         <Header currentView={currentView} onViewChange={setCurrentView} onStartDemo={handleStartDemo} isDemoActive={isDemoActive} />
         <div className="flex flex-col lg:flex-row gap-6 items-start">
           <Sidebar currentView={currentView} onViewChange={setCurrentView} selectedTrainNumber={selectedTrain.number} />
-          <main className="flex-1 w-full min-w-0 space-y-6">
+          <main className="flex-1 w-full min-w-0">
+            <div key={currentView} className="page-enter space-y-6">
             {currentView === 'overview' && (
               <div className="space-y-6">
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
-                  <div className="p-4 rounded-xl rail-surface">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                  <div className="stat-card interactive-card p-4 rounded-2xl rail-surface">
                     <div className="flex items-center justify-between text-slate-500 mb-1">
                       <span className="text-[10px] font-extrabold uppercase tracking-wider">Active Trains</span>
                       <Train className="w-4 h-4 text-blue-600" />
@@ -163,7 +165,7 @@ export const App: React.FC = () => {
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> 100% Tracking Live
                     </div>
                   </div>
-                  <div className="p-4 rounded-xl rail-surface">
+                  <div className="stat-card interactive-card p-4 rounded-2xl rail-surface">
                     <div className="flex items-center justify-between text-slate-500 mb-1">
                       <span className="text-[10px] font-extrabold uppercase tracking-wider">Avg Delay</span>
                       <Clock className="w-4 h-4 text-amber-600" />
@@ -171,7 +173,7 @@ export const App: React.FC = () => {
                     <div className="text-3xl font-black text-amber-600 font-mono">{avgDelay} <span className="text-sm font-bold">min</span></div>
                     <div className="text-[10px] text-slate-500 font-medium mt-1">Across 702 km corridor</div>
                   </div>
-                  <div className="p-4 rounded-xl rail-surface">
+                  <div className="stat-card interactive-card p-4 rounded-2xl rail-surface">
                     <div className="flex items-center justify-between text-slate-500 mb-1">
                       <span className="text-[10px] font-extrabold uppercase tracking-wider">High Risk</span>
                       <AlertTriangle className="w-4 h-4 text-red-600" />
@@ -179,15 +181,7 @@ export const App: React.FC = () => {
                     <div className="text-3xl font-black text-red-600 font-mono">{highRiskCount}</div>
                     <div className="text-[10px] text-red-600 font-bold mt-1">Needs Dispatch Attention</div>
                   </div>
-                  <div className="p-4 rounded-xl rail-surface">
-                    <div className="flex items-center justify-between text-slate-500 mb-1">
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider">Predictions Updated</span>
-                      <Activity className="w-4 h-4 text-blue-600" />
-                    </div>
-                    <div className="text-3xl font-black text-blue-600 font-mono">{eventLogs.length + 19}</div>
-                    <div className="text-[10px] text-slate-500 font-medium mt-1">Simulated ML passes</div>
-                  </div>
-                  <div className="p-4 rounded-xl rail-surface col-span-2 sm:col-span-1">
+                  <div className="stat-card interactive-card p-4 rounded-2xl rail-surface col-span-2 lg:col-span-1">
                     <div className="flex items-center justify-between text-slate-500 mb-1">
                       <span className="text-[10px] font-extrabold uppercase tracking-wider">Avg Confidence</span>
                       <CheckCircle2 className="w-4 h-4 text-emerald-600" />
@@ -197,7 +191,7 @@ export const App: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="rounded-xl rail-surface p-5">
+                <div className="rounded-2xl rail-surface p-4 sm:p-5">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-200">
                     <div>
                       <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
@@ -206,7 +200,7 @@ export const App: React.FC = () => {
                       </h3>
                       <p className="text-xs text-slate-600 font-medium">Compare linear Static ETA vs RailETA Dynamic Forecasts in real time</p>
                     </div>
-                    <span className="text-xs font-bold text-slate-600">Selected: <span className="text-blue-600 font-black">{selectedTrain.name}</span></span>
+                    <span className="rounded-lg bg-sky-50 px-2.5 py-1 text-xs font-bold text-slate-600 border border-sky-100">Viewing <span className="text-blue-600 font-black">{selectedTrain.name}</span></span>
                   </div>
 
                   <div className="overflow-x-auto">
@@ -229,7 +223,7 @@ export const App: React.FC = () => {
                         {trains.map((t) => {
                           const isSelected = t.id === selectedTrainId;
                           return (
-                            <tr key={t.id} className={'transition-colors cursor-pointer ' + (isSelected ? 'bg-sky-50 font-semibold' : 'hover:bg-slate-50')} onClick={() => setSelectedTrainId(t.id)}>
+                            <tr key={t.id} className={'cursor-pointer transition-colors ' + (isSelected ? 'bg-sky-50 font-semibold' : 'hover:bg-slate-50')} onClick={() => setSelectedTrainId(t.id)}>
                               <td className="py-3.5 px-3">
                                 <div className="flex items-center space-x-2">
                                   <span className="font-mono font-black text-slate-900 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-[11px]">{t.number}</span>
@@ -252,8 +246,8 @@ export const App: React.FC = () => {
                                 <span className={'px-2 py-0.5 rounded-full text-[10px] font-black ' + (t.risk === 'High' ? 'bg-red-50 text-red-600 border border-red-200' : t.risk === 'Medium' ? 'bg-amber-50 text-amber-700 border border-amber-200' : t.risk === 'Recovering' ? 'bg-sky-50 text-blue-600 border border-sky-200' : 'bg-emerald-50 text-emerald-600 border border-emerald-200')}>{t.status}</span>
                               </td>
                               <td className="py-3.5 px-3 text-right">
-                                <button onClick={(e) => { e.stopPropagation(); setSelectedTrainId(t.id); setCurrentView('live-train'); }} className="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-lg text-[11px] font-extrabold inline-flex items-center gap-1">
-                                  Open Live Prediction <ArrowUpRight className="w-3 h-3" />
+                                <button onClick={(e) => { e.stopPropagation(); setSelectedTrainId(t.id); setCurrentView('live-train'); }} className="rounded-lg bg-blue-600 px-3 py-1.5 text-[11px] font-extrabold text-white inline-flex items-center gap-1 transition-all hover:-translate-y-0.5 hover:bg-blue-500 hover:shadow-md">
+                                  View live <ArrowUpRight className="w-3 h-3" />
                                 </button>
                               </td>
                             </tr>
@@ -264,6 +258,7 @@ export const App: React.FC = () => {
                   </div>
                 </div>
 
+                <TrainPredictionPanel train={selectedTrain} />
                 <EtaComparisonCard scheduledEta={selectedTrain.scheduledEta} staticEta={selectedTrain.staticEta} dynamicEta={selectedTrain.dynamicEta} confidenceScore={selectedTrain.confidenceScore} arrivalWindow={selectedTrain.arrivalWindow} currentDelayMin={selectedTrain.currentDelayMin} predictedFinalDelayMin={selectedTrain.predictedFinalDelayMin} previousDynamicEta={previousDynamicEta} />
                 <RouteTimeline stations={selectedTrain.routeStations} currentSpeed={selectedTrain.speedKmh} currentSection={selectedTrain.currentSection} fromStation={selectedTrain.fromStation} toStation={selectedTrain.toStation} />
                 <ScenarioSimulator currentScenario={currentScenario} onSelectScenario={handleSelectScenario} onReset={() => handleSelectScenario('NORMAL')} activeNotification={activeNotification} />
@@ -317,6 +312,7 @@ export const App: React.FC = () => {
             {currentView === 'presentation' && (
               <PresentationMode train={selectedTrain} currentScenario={currentScenario} onSelectScenario={handleSelectScenario} onStartDemo={handleStartDemo} isDemoActive={isDemoActive} />
             )}
+            </div>
           </main>
         </div>
 

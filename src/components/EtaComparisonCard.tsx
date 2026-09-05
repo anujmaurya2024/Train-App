@@ -29,7 +29,7 @@ export const EtaComparisonCard: React.FC<EtaComparisonCardProps> = ({
   const isDelayExpanded = predictedFinalDelayMin > currentDelayMin;
 
   return (
-    <div className="w-full rounded-xl border border-slate-200 bg-white p-5 relative overflow-hidden" style={{ boxShadow: 'none' }}>
+    <div className="w-full rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 relative overflow-hidden shadow-sm">
       <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-200">
         <div className="flex items-center space-x-2">
           <div className="p-1.5 rounded-lg bg-sky-50 text-blue-600 border border-sky-200">
@@ -94,8 +94,8 @@ export const EtaComparisonCard: React.FC<EtaComparisonCardProps> = ({
           </div>
           <div className="text-xs font-bold text-blue-600">Dynamic ETA (ML Forecast)</div>
 
-          <div className="flex items-baseline gap-2 my-1">
-            <span className="text-3xl sm:text-4xl font-black text-blue-600 font-mono tracking-tight animate-eta-update">
+          <div className="flex items-baseline gap-2 my-1" aria-live="polite">
+            <span key={dynamicEta} className="text-3xl sm:text-4xl font-black text-blue-600 font-mono tracking-tight animate-eta-update">
               {dynamicEta}
             </span>
             {previousDynamicEta && previousDynamicEta !== dynamicEta && (

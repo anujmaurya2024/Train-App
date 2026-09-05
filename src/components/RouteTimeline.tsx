@@ -21,20 +21,20 @@ export const RouteTimeline: React.FC<RouteTimelineProps> = ({
   const nextStationIndex = stations.findIndex(s => s.status === 'upcoming');
 
   return (
-    <div className={`w-full ${compact ? 'p-3' : 'p-5'} rounded-xl border border-slate-200 bg-white`} style={{ boxShadow: 'none' }}>
-      <div className="flex items-center justify-between mb-4">
+    <div className={`w-full ${compact ? 'p-3' : 'p-4 sm:p-5'} rounded-2xl border border-slate-200 bg-white shadow-sm`}>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
         <div>
           <h3 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
             <MapPin className="w-4 h-4 text-blue-600" />
-            Active Route Corridor & Station Checkpoints
+            Route progress
           </h3>
           <p className="text-[11px] text-slate-600 font-medium">
             Delhi - Bhopal High-Density Trunk Route (702 km)
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <span className="px-2.5 py-1 rounded-lg text-xs font-bold text-blue-600 bg-sky-50 border border-sky-200 flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-ping"></span>
+            <span className="w-2 h-2 rounded-full bg-blue-500 animate-live-dot"></span>
             Section: {currentSection}
           </span>
           <span className="px-2.5 py-1 rounded-lg text-xs font-bold text-emerald-600 bg-emerald-50 border border-emerald-200">
@@ -135,8 +135,8 @@ export const RouteTimeline: React.FC<RouteTimelineProps> = ({
         </div>
       </div>
 
-      <div className="flex items-center justify-between pt-3 border-t border-slate-200 text-[11px] text-slate-500">
-        <div className="flex items-center space-x-4">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between pt-3 border-t border-slate-200 text-[11px] text-slate-500">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
           <span className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Passed Station
           </span>
@@ -147,7 +147,7 @@ export const RouteTimeline: React.FC<RouteTimelineProps> = ({
             <span className="w-2.5 h-2.5 rounded-full bg-slate-400"></span> Upcoming Stations
           </span>
         </div>
-        <span className="font-semibold text-slate-700">
+        <span className="hidden sm:inline font-semibold text-slate-700">
           Sectional Max Permissible Speed: 130 km/h
         </span>
       </div>
