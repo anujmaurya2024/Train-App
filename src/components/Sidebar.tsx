@@ -2,13 +2,10 @@ import React from 'react';
 import { 
   LayoutDashboard, 
   TrainTrack, 
-  Cpu, 
   Sliders, 
   Layers, 
   Users, 
   Network, 
-  GitBranch, 
-  Presentation,
   CheckCircle2
 } from 'lucide-react';
 
@@ -26,13 +23,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const menuItems = [
     { id: 'overview', label: 'Overview', icon: LayoutDashboard, badge: '4 Trains' },
     { id: 'live-train', label: 'Live Train Monitor', icon: TrainTrack, badge: `#${selectedTrainNumber}` },
-    { id: 'eta-intelligence', label: 'ETA Intelligence', icon: Cpu, badge: 'ML Logic' },
     { id: 'simulator', label: 'Scenario Simulator', icon: Sliders, badge: '9 Presets' },
     { id: 'operations', label: 'Operations Control', icon: Layers, badge: 'Live Dispatch' },
     { id: 'passenger', label: 'Passenger View', icon: Users, badge: 'Public ETA' },
     { id: 'propagation', label: 'Network Delay Flow', icon: Network, badge: 'Cascading' },
-    { id: 'architecture', label: 'System Architecture', icon: GitBranch, badge: 'Design' },
-    { id: 'presentation', label: 'Presentation Mode', icon: Presentation, badge: 'PPT Ready' },
   ];
 
   return (

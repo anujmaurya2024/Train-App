@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Train, Sparkles, Activity, ShieldCheck, Clock } from 'lucide-react';
+import { Train, Activity, ShieldCheck, Clock } from 'lucide-react';
 
 interface HeaderProps {
-  currentView: string;
-  onViewChange: (view: string) => void;
   onStartDemo: () => void;
   isDemoActive: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  currentView,
-  onViewChange,
   onStartDemo,
   isDemoActive,
 }) => {
@@ -58,20 +54,6 @@ export const Header: React.FC<HeaderProps> = ({
             <ShieldCheck className="h-4 w-4 text-blue-600" />
             Rail operations dashboard
           </div>
-
-          <button
-            onClick={() => onViewChange('presentation')}
-            className={`rounded-lg border px-3.5 py-2 text-xs font-bold transition-all ${
-              currentView === 'presentation'
-                ? 'border-sky-200 bg-sky-50 text-blue-600'
-                : 'border-slate-200 bg-white text-slate-700 hover:border-blue-200 hover:text-slate-900'
-            }`}
-          >
-            <span className="inline-flex items-center gap-1.5">
-              <Sparkles className="h-3.5 w-3.5 text-amber-500" />
-              Presentation mode
-            </span>
-          </button>
 
           <button
             onClick={onStartDemo}

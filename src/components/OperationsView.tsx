@@ -130,7 +130,7 @@ export const OperationsView: React.FC<OperationsViewProps> = ({
                         }}
                         className="neu-btn px-3 py-1 rounded-xl text-[11px] font-bold text-blue-700 hover:text-blue-900 inline-flex items-center gap-1"
                       >
-                        Inspect ML
+                        View live
                         <ArrowUpRight className="w-3 h-3" />
                       </button>
                     </td>

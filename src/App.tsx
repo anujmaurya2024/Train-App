@@ -9,16 +9,11 @@ import { LiveFeaturePanel } from './components/LiveFeaturePanel';
 import { ScenarioSimulator } from './components/ScenarioSimulator';
 import { EtaEventHistory } from './components/EtaEventHistory';
 import { DelayEvolutionChart } from './components/DelayEvolutionChart';
-import { FeatureImportancePanel } from './components/FeatureImportancePanel';
-import { MlWorkflowSection } from './components/MlWorkflowSection';
 import { PassengerView } from './components/PassengerView';
 import { OperationsView } from './components/OperationsView';
 import { DelayPropagationView } from './components/DelayPropagationView';
-import { ArchitectureModal } from './components/ArchitectureModal';
-import { PresentationMode } from './components/PresentationMode';
 import { DemoModal } from './components/DemoModal';
 import LiveTrainStatus from './components/LiveTrainStatus';
-import { TrainPredictionPanel } from './components/TrainPredictionPanel';
 import { Train, AlertTriangle, CheckCircle2, Clock, ArrowUpRight, Sparkles } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -147,7 +142,7 @@ export const App: React.FC = () => {
   return (
     <div className="min-h-screen text-slate-900 p-3 sm:p-5 lg:p-6 transition-colors font-sans">
       <div className="mx-auto max-w-[1440px] space-y-5">
-        <Header currentView={currentView} onViewChange={setCurrentView} onStartDemo={handleStartDemo} isDemoActive={isDemoActive} />
+        <Header onStartDemo={handleStartDemo} isDemoActive={isDemoActive} />
         <div className="flex flex-col lg:flex-row gap-6 items-start">
           <Sidebar currentView={currentView} onViewChange={setCurrentView} selectedTrainNumber={selectedTrain.number} />
           <main className="flex-1 w-full min-w-0">
@@ -258,7 +253,6 @@ export const App: React.FC = () => {
                   </div>
                 </div>
 
-                <TrainPredictionPanel train={selectedTrain} />
                 <EtaComparisonCard scheduledEta={selectedTrain.scheduledEta} staticEta={selectedTrain.staticEta} dynamicEta={selectedTrain.dynamicEta} confidenceScore={selectedTrain.confidenceScore} arrivalWindow={selectedTrain.arrivalWindow} currentDelayMin={selectedTrain.currentDelayMin} predictedFinalDelayMin={selectedTrain.predictedFinalDelayMin} previousDynamicEta={previousDynamicEta} />
                 <RouteTimeline stations={selectedTrain.routeStations} currentSpeed={selectedTrain.speedKmh} currentSection={selectedTrain.currentSection} fromStation={selectedTrain.fromStation} toStation={selectedTrain.toStation} />
                 <ScenarioSimulator currentScenario={currentScenario} onSelectScenario={handleSelectScenario} onReset={() => handleSelectScenario('NORMAL')} activeNotification={activeNotification} />
@@ -273,14 +267,6 @@ export const App: React.FC = () => {
             {currentView === 'live-train' && (
               <div className="space-y-6">
                 <LiveTrainStatus train={selectedTrain} logs={eventLogs} onSetTrackingStation={(s) => addLog('Set Tracking Station', `Now tracking ${s.name}`, selectedTrain.dynamicEta, '+0 min', 'info')} />
-              </div>
-            )}
-
-            {currentView === 'eta-intelligence' && (
-              <div className="space-y-6">
-                <MlWorkflowSection />
-                <FeatureImportancePanel />
-                <DelayEvolutionChart train={selectedTrain} />
               </div>
             )}
 
@@ -305,13 +291,6 @@ export const App: React.FC = () => {
               <DelayPropagationView />
             )}
 
-            {currentView === 'architecture' && (
-              <ArchitectureModal />
-            )}
-
-            {currentView === 'presentation' && (
-              <PresentationMode train={selectedTrain} currentScenario={currentScenario} onSelectScenario={handleSelectScenario} onStartDemo={handleStartDemo} isDemoActive={isDemoActive} />
-            )}
             </div>
           </main>
         </div>
